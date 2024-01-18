@@ -1,31 +1,44 @@
 import * as d3 from 'd3'
 import { HierarchyPointNode } from 'd3';
-import { root } from 'postcss';
 import { Nodes, treeData } from './constants';
 
 
 export default function BinarySearchTree(svg: d3.Selection<SVGGElement, unknown, null, undefined>){
-// Define the data for the binary tree
+let highlightDelay = 0;
+    function search(node: Nodes | undefined, value: number): boolean {
+  if (!node) {
+      return false;
+    }
 
+    // Schedule the highlighting of the node
+    setTimeout(() => {
+      node.highlight = true;
 
-// Define the binary search function
-function search(node: Nodes, value: number): boolean {
-  if (node.name === value) {
-    node.highlight = true;
-    return true;
-  }
-  if (node.children) {
-    let found = false;
-    for (let child of node.children) {
-      found = search(child, value);
-      if (found) {
-        node.highlight = true;
-        return true;
+      // Update the fill color of the node
+      svg.selectAll('circle.node')
+        .filter(function(d:any){return d.data === node})
+        .transition()
+        .duration(1000)
+        .style('fill', 'blue');
+    }, highlightDelay);
+
+    // Increase the delay for the next node
+    highlightDelay += 1000;
+
+    if (node.name === value) {
+      return true;
+    }
+
+    if (node.children) {
+      if (value < node.name) {
+        return search(node.children[0], value); // Search in the left subtree
+      } else {
+        return search(node.children[1], value); // Search in the right subtree
       }
     }
-  }
-  return false;
-}
+
+    return false;
+  } 
 
 search(treeData, 7);
 
@@ -72,8 +85,7 @@ svg.selectAll('g.node-group')
     .style('stroke-width', '2px')
     .transition()
     .delay(function(d, i) { return i * 500; })
-    .duration(1000)
-    .style('fill', function(d) { return d.data.highlight ? 'blue' : 'red'; });
+    .duration(1000);
 
 svg.selectAll('g.node-group')
     .append('text')
