@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 async function BubbleSort(svg: d3.Selection<SVGSVGElement, unknown, null, undefined>){
  
   let array: number[] = Array.from({length: 20}, () => Math.floor(Math.random() * 100));
-  let width = 350;
+  let width = window.innerWidth/ 6;
   let height = 250;
   
   let xScale = d3.scaleBand()
@@ -40,7 +40,7 @@ async function BubbleSort(svg: d3.Selection<SVGSVGElement, unknown, null, undefi
             .duration(100)
             .attr('y', d => yScale(d))
             .attr('height', d => height - yScale(d));
-          await new Promise(r => setTimeout(r, 100));
+          await new Promise(r => setTimeout(r, 110));
         }
       }
     } while(swapped);

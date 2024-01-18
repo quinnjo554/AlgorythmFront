@@ -9,17 +9,14 @@ function BubbleSortChart() {
   useEffect(() => {
     if (ref.current) {
       const svg = d3.select(ref.current);
-
-      // Your D3.js code goes here
-      // For example:
       BubbleSort(svg);
     }
   }, []);
 
   return (
-    <div className="w-full aspect-[5/2] -z-10 ml-64">
-      <svg className="w-full h-full" ref={ref} />
-    </div>
+    <Box className="w-full aspect-[5/2] -z-10 ml-64">
+      <svg className="w-full h-full justify-center" ref={ref} />
+    </Box>
   );
 }
 
