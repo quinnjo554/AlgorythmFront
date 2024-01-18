@@ -73,7 +73,7 @@ svg.selectAll('g.node-group')
     .transition()
     .delay(function(d, i) { return i * 500; })
     .duration(1000)
-    .style('fill', function(d) { return d.data.highlight ? 'blue' : 'black'; });
+    .style('fill', function(d) { return d.data.highlight ? 'blue' : 'red'; });
 
 svg.selectAll('g.node-group')
     .append('text')
