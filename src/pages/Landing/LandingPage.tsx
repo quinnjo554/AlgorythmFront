@@ -30,7 +30,7 @@ function LandingPage() {
           <Button variant="outlined">Dynamic Programming</Button>
         </Box>
         <Box sx={{ marginLeft: "auto" }}>
-          <Button color="info" variant="outlined">
+          <Button href="/api/auth/login" color="info" variant="outlined">
             Sign in
           </Button>
         </Box>
