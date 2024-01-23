@@ -23,7 +23,7 @@ let highlightDelay = 0;
     }, highlightDelay);
 
     // Increase the delay for the next node
-    highlightDelay += 1000;
+    highlightDelay += 3000;
 
     if (node.name === value) {
       return true;
@@ -85,7 +85,7 @@ svg.selectAll('g.node-group')
     .style('stroke-width', '2px')
     .transition()
     .delay(function(d, i) { return i * 500; })
-    .duration(1000);
+    .duration(10000);
 
 svg.selectAll('g.node-group')
     .append('text')
