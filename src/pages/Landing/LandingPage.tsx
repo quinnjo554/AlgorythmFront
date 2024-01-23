@@ -6,8 +6,12 @@ import React from "react";
 import { Box, Container, Grid, Typography, Button } from "@mui/material";
 import BubbleSortChart from "@/pages/Landing/components/Search/BubbleSortChart";
 import BinarySearch from "@/pages/Landing/components/Search/BinarySearch";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { redirect } from "next/navigation";
 
 function LandingPage() {
+  const { user, error, isLoading } = useUser();
+
   return (
     <Box className="flex flex-col min-h-screen">
       <Box className="flex items-center h-16 px-4 border-b shrink-0 md:px-6">
@@ -30,7 +34,7 @@ function LandingPage() {
           <Button variant="outlined">Dynamic Programming</Button>
         </Box>
         <Box sx={{ marginLeft: "auto" }}>
-          <Button href="/api/auth/login" color="info" variant="outlined">
+          <Button href="/api/auth/login/" color="info" variant="outlined">
             Sign in
           </Button>
         </Box>
@@ -51,7 +55,7 @@ function LandingPage() {
                 </Typography>
                 <Button
                   className="inline-flex h-10 m-4 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-                  href="#"
+                  href="/api/auth/logout"
                 >
                   Start Visualizing
                 </Button>

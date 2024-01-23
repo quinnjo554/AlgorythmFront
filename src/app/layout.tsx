@@ -17,13 +17,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <UserProvider>
-        <body>
+      <body>
+        <UserProvider>
           <AppRouterCacheProvider options={{ enableCssLayer: true }}>
             {children}
           </AppRouterCacheProvider>
-        </body>
-      </UserProvider>
+        </UserProvider>
+      </body>
     </html>
   );
 }
