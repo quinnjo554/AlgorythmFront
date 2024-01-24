@@ -6,12 +6,9 @@ import React from "react";
 import { Box, Container, Grid, Typography, Button } from "@mui/material";
 import BubbleSortChart from "@/pages/Landing/components/Search/BubbleSortChart";
 import BinarySearch from "@/pages/Landing/components/Search/BinarySearch";
-import { useUser } from "@auth0/nextjs-auth0/client";
-import { redirect } from "next/navigation";
+import AuthButton from "@/components/AuthButton/AuthButton";
 
 function LandingPage() {
-  const { user, error, isLoading } = useUser();
-
   return (
     <Box className="flex flex-col min-h-screen">
       <Box className="flex items-center h-16 px-4 border-b shrink-0 md:px-6">
@@ -34,9 +31,7 @@ function LandingPage() {
           <Button variant="outlined">Dynamic Programming</Button>
         </Box>
         <Box sx={{ marginLeft: "auto" }}>
-          <Button href="/api/auth/login/" color="info" variant="outlined">
-            Sign in
-          </Button>
+          <AuthButton />
         </Box>
       </Box>
       <main className="flex-1">
