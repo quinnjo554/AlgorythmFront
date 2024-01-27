@@ -6,7 +6,8 @@ import React from "react";
 import { Box, Container, Grid, Typography, Button } from "@mui/material";
 import BubbleSortChart from "@/pages/Landing/components/Search/BubbleSortChart";
 import BinarySearch from "@/pages/Landing/components/Search/BinarySearch";
-
+import AuthButton from "@/components/AuthButton/AuthButton";
+import { BiCode } from "react-icons/bi";
 function LandingPage() {
   return (
     <Box className="flex flex-col min-h-screen">
@@ -15,7 +16,7 @@ function LandingPage() {
           className="flex items-center gap-2 text-lg font-semibold sm:text-base mr-4"
           href="#"
         >
-          <CodeIcon />
+          <BiCode />
           <Typography>AlgoVisualizer</Typography>
         </Link>
         <Box className="hidden font-medium sm:flex flex-row items-center gap-5 text-sm lg:gap-6">
@@ -30,9 +31,7 @@ function LandingPage() {
           <Button variant="outlined">Dynamic Programming</Button>
         </Box>
         <Box sx={{ marginLeft: "auto" }}>
-          <Button href="/api/auth/login" color="info" variant="outlined">
-            Sign in
-          </Button>
+          <AuthButton />
         </Box>
       </Box>
       <main className="flex-1">
@@ -51,7 +50,7 @@ function LandingPage() {
                 </Typography>
                 <Button
                   className="inline-flex h-10 m-4 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-                  href="#"
+                  href="/api/auth/logout"
                 >
                   Start Visualizing
                 </Button>

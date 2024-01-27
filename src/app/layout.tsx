@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
+
 import { UserProvider } from "@auth0/nextjs-auth0/client";
+import Providers from "@/context/Providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -17,13 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <UserProvider>
-        <body>
-          <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-            {children}
-          </AppRouterCacheProvider>
-        </body>
-      </UserProvider>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
