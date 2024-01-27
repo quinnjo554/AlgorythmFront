@@ -7,7 +7,7 @@ import { Box, Container, Grid, Typography, Button } from "@mui/material";
 import BubbleSortChart from "@/pages/Landing/components/Search/BubbleSortChart";
 import BinarySearch from "@/pages/Landing/components/Search/BinarySearch";
 import AuthButton from "@/components/AuthButton/AuthButton";
-
+import { BiCode } from "react-icons/bi";
 function LandingPage() {
   return (
     <Box className="flex flex-col min-h-screen">
@@ -16,7 +16,7 @@ function LandingPage() {
           className="flex items-center gap-2 text-lg font-semibold sm:text-base mr-4"
           href="#"
         >
-          <CodeIcon />
+          <BiCode />
           <Typography>AlgoVisualizer</Typography>
         </Link>
         <Box className="hidden font-medium sm:flex flex-row items-center gap-5 text-sm lg:gap-6">

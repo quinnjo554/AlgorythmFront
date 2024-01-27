@@ -1,10 +1,14 @@
 "use client";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import DashboardPage from "@/pages/Dashboard/DashboardPage";
+import { Box } from "@mui/material";
 import React from "react";
 
 function Dashboard() {
-  const { user, error, isLoading } = useUser();
-  return <div>{user?.email}</div>;
+  return (
+    <Box>
+      <DashboardPage></DashboardPage>
+    </Box>
+  );
 }
 
 export default Dashboard;
