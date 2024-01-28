@@ -7,6 +7,7 @@ import {
   Button,
   Box,
   CardActionArea,
+  Paper,
 } from "@mui/material";
 import React from "react";
 
@@ -24,8 +25,8 @@ function AlgoCard({
   progress: string;
 }) {
   return (
-    <Box>
-      <Card className="rounded-xl">
+    <Paper square={false} elevation={3}>
+      <Card>
         <CardHeader title={header}></CardHeader>
         <CardContent>
           <Typography className="text-xl">{definition}</Typography>
@@ -35,7 +36,7 @@ function AlgoCard({
           <Typography className="font-medium">
             Difficulty: {difficulty}
           </Typography>
-          <Typography className="font-medium">Progress: {progress}</Typography>
+          <Typography className="font-medium">Progress: {progress}%</Typography>
         </CardContent>
 
         <CardActions>
@@ -48,7 +49,7 @@ function AlgoCard({
           </Button>
         </CardActions>
       </Card>
-    </Box>
+    </Paper>
   );
 }
 

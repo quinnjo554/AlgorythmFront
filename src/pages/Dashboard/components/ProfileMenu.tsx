@@ -1,13 +1,14 @@
+"use client";
 import * as React from "react";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { Avatar, Box } from "@mui/material";
+import { Avatar, AvatarGroup, Box } from "@mui/material";
 import landingImg from "../../../../public/landingImg.jpg";
 import Link from "next/link";
-const options = ["Profile", "Settings", "Account", "LogOut"];
+const options = ["Profile", "Settings", "Account", "Logout"];
 
 export default function SimpleListMenu({ img }: { img: string }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -30,8 +31,8 @@ export default function SimpleListMenu({ img }: { img: string }) {
   };
 
   return (
-    <Box className="">
-      <Avatar
+    <Box>
+      <img
         id="lock-button"
         aria-haspopup="listbox"
         aria-controls="lock-menu"
@@ -39,11 +40,9 @@ export default function SimpleListMenu({ img }: { img: string }) {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClickListItem}
         alt="Avatar"
-        src={img}
-        className="rounded-full h-20 w-20"
-      >
-        <ListItemText primary="" secondary={options[selectedIndex]} />
-      </Avatar>
+        src={img ?? ""}
+        className="w-20 h-20 rounded-full"
+      />
 
       <Menu
         id="lock-menu"
