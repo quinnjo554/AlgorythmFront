@@ -2,7 +2,8 @@ import { UseQueryResult, useQuery } from "react-query";
 import { User } from "@/models/User/User";
 import { UserRequest } from "@/models/User/UserRequest";
 import createDefaultUser from "@/models/User/DeafultUser";
-import { UserProfile } from "@auth0/nextjs-auth0/client";
+import { UserProfile, useUser } from "@auth0/nextjs-auth0/client";
+import { useEffect, useState } from "react";
 
 export function useUserEmail(email:string, user: UserRequest) : UseQueryResult<User, unknown>{
     return useQuery(['User', email], async () =>{
@@ -34,3 +35,21 @@ export function useUserEmail(email:string, user: UserRequest) : UseQueryResult<U
     const data = await response.json();
     return data;
  }
+
+
+export default function useAuthenticatedUser() {
+  const { user: authUser } = useUser();
+  const email = authUser?.email ?? "";
+  const dUser = (authUser && createDefaultUser(authUser)) ?? {} as UserRequest;
+  const { data: dbUser } = useUserEmail(email, dUser); 
+
+  const [user, setUser] = useState<User>();
+
+  useEffect(() => {
+    if (dbUser) {
+      setUser(dbUser);
+    }
+  }, [dbUser]);
+
+  return user;
+}
