@@ -41,7 +41,7 @@ export default function useAuthenticatedUser() {
   const { user: authUser } = useUser();
   const email = authUser?.email ?? "";
   const dUser = (authUser && createDefaultUser(authUser)) ?? {} as UserRequest;
-  const { data: dbUser } = useUserEmail(email, dUser); // called unconditionally at the top level
+  const { data: dbUser } = useUserEmail(email, dUser); 
 
   const [user, setUser] = useState<User>();
 

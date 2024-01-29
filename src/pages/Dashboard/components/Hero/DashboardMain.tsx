@@ -27,7 +27,8 @@ function DashboardMain({ user }: { user: User }) {
           <Link
             href={
               "/dashboard/" +
-              course.coursename?.toLowerCase().replace(/\s/g, "")
+              course.coursename?.toLowerCase().replace(/\s/g, "") +
+              `/${course.courseid}/0/`
             }
           >
             <AlgoCard
