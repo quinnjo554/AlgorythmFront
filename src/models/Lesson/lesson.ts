@@ -3,6 +3,7 @@ export interface Lesson{
     lessonname?:string | null,
     lessondescription:string,
     imageurl:string,
-    gifurl:number,
+    gifURL:number,
+    lessontype:string,
     courseid:number
 }

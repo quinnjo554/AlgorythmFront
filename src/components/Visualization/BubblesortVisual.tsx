@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import * as d3 from "d3";
 import { useEffect, useRef, useState } from "react";
-import { BiPause, BiPlay } from "react-icons/bi";
+import { BiBarChartAlt2, BiPause, BiPlay } from "react-icons/bi";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 // ... (imports)
@@ -28,10 +28,8 @@ export default function BubbleSortVisual() {
       cancellationToken.current.isCancelled = false;
       const svg = d3.select(ref.current);
 
-      // Start or resume sorting
       BubbleSort(svg, barSize, cancellationToken.current);
     } else {
-      // Stop sorting
       cancellationToken.current.isCancelled = true;
     }
   };
@@ -49,16 +47,13 @@ export default function BubbleSortVisual() {
   console.log({ cancellationToken });
   return (
     <Box className="w-full h-full">
-      <Box>
+      <Box className="flex items-center mt-8">
         <IconButton onClick={togglePlay}>
-          {cancellationToken.current.isCancelled ? (
-            <PlayArrowIcon fontSize="large" />
-          ) : (
-            <PauseIcon fontSize="large" />
-          )}
+          <BiBarChartAlt2 className="m-2 text-2xl" />
+          {cancellationToken.current.isCancelled}
         </IconButton>
-        <Typography id="bar-size-slider" gutterBottom>
-          Number of Bars
+        <Typography id="bar-size-slider m-2" gutterBottom>
+          Size
         </Typography>
         <Slider
           value={barSize}
@@ -70,7 +65,10 @@ export default function BubbleSortVisual() {
           valueLabelFormat={(value) => `${value}`}
         />
       </Box>
-      <Box className="rounded-2xl" boxShadow={5}>
+      <Box
+        className="rounded-2xl  bg-black shadow-green-600 shadow-2xl"
+        boxShadow={5}
+      >
         <svg
           className="w-full h-full rounded-lg justify-center aspect-square"
           ref={ref}
