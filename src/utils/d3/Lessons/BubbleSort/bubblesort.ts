@@ -34,7 +34,7 @@ let height = docHeight;
     .attr('y', d => yScale(d))
     .attr('width', xScale.bandwidth())
     .attr('height', d => height - yScale(d))
-    .attr('fill', 'blue');
+    .attr('fill', '#20C20E');
 
 async function bubbleSort() {
   let len = data.length;
@@ -62,7 +62,7 @@ async function bubbleSort() {
 
       // Wait for animation to finish and revert color
       await new Promise(r => setTimeout(r, 2000 / barSize));
-      bars.attr('fill', 'blue');
+      bars.attr('fill', '#20C20E');
     }
   }
 }
