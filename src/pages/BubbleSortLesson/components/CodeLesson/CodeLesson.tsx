@@ -2,38 +2,42 @@ import {
   Card,
   Typography,
   CardContent,
-  Button,
-  List,
-  TextField,
   Checkbox,
   Box,
   Divider,
-  IconButton,
-  InputBase,
-  Paper,
+  Button,
 } from "@mui/material";
-import React, { useState } from "react";
-import { BiCode } from "react-icons/bi";
-import { incrementLessons } from "../LessonOne/BubbleSortLessonOne";
+import React, { useRef, useState } from "react";
 import { Lesson } from "@/models/Lesson/lesson";
 import { CourseParams } from "@/utils/constants/courseParams";
 import { getCodeQA } from "@/hooks/code/codeHooks";
 import { bubbleSortCode } from "@/utils/constants/LessonsCode";
 import CodeInput from "@/components/Inputs/CodeInput";
-
+import Editor from "@monaco-editor/react"
+import { editor as monacoEditor } from 'monaco-editor';
 function CodeLesson({
   lessons,
   ids,
+  algorithmSnipet
 }: {
   lessons: Lesson[];
   ids: CourseParams;
+  algorithmSnipet: string
 }) {
   const lessonId = Number(ids.lessonId);
   const { data: code } = getCodeQA(lessonId + 1);
-  const [userText1, setUserInput] = useState("");
-  const [userText2, setUserInput2] = useState("");
+  const [sourceOutput, setSourceOutput] = useState("");
   let description = lessons[lessonId].lessondescription;
   let parts = description.split("$"); // Split the description into parts
+  const editorRef = useRef<monacoEditor.IStandaloneCodeEditor | null>(null);
+  const [editorValue, setEditorValue] = useState('');
+
+  function handleEditorDidMount(editor: monacoEditor.IStandaloneCodeEditor, monaco: typeof monacoEditor) {
+    editorRef.current = editor;
+    editor.onDidChangeModelContent(() => {
+      setEditorValue(editor.getValue());
+    });
+  }
 
   // Now map the parts to Typography components
   let descriptionParts = parts.map((part, index) => (
@@ -66,13 +70,11 @@ function CodeLesson({
                         fontWeight: "bold",
                         fontStyle: "italic",
                         color:
-                          userText1.trim().toLowerCase().replace(/\s/g, "") ===
+                          sourceOutput.trim().toLowerCase().replace(/\s/g, "") ===
                             codes.output
                               .trim()
                               .toLowerCase()
-                              .replace(/\s/g, "") ||
-                          userText2.trim().toLowerCase().replace(/\s/g, "") ===
-                            codes.output.trim().toLowerCase().replace(/\s/g, "")
+                              .replace(/\s/g, "")
                             ? "blue"
                             : "red",
                         mt: "20px",
@@ -81,13 +83,9 @@ function CodeLesson({
                       {index + 1}. {codes.questiontext}
                     </Typography>
                     <Typography>
-                      {(userText1.trim().toLowerCase().replace(/\s/g, "") ===
-                        codes.output.trim().toLowerCase().replace(/\s/g, "") ||
-                        userText2.trim().toLowerCase().replace(/\s/g, "") ===
-                          codes.output
-                            .trim()
-                            .toLowerCase()
-                            .replace(/\s/g, "")) && <Checkbox checked />}
+                      {sourceOutput.trim().toLowerCase().replace(/\s/g, "") ===
+                        codes.output.trim().toLowerCase().replace(/\s/g, "")
+                        && <Checkbox checked />}
                     </Typography>
                   </div>
                 ))}
@@ -97,26 +95,22 @@ function CodeLesson({
           <Card className="flex-1 h-full">
             <CardContent className="h-full flex flex-col items-center justify-center ">
               <Box className="h-full w-full">
-                <Typography className="p-3 h-full rounded-2xl shadow-lg shadow-green-500 w-full bg-black flex flex-col items-center justify-center">
-                  <pre>
-                    <code className="text-3xl font-mono w-full text-green-600">
-                      {bubbleSortCode(userText1, userText2)}
-                    </code>
-                  </pre>
-                  <CodeInput
-                    userText1={userText1}
-                    setUserInput={setUserInput}
-                  ></CodeInput>
-                  <CodeInput
-                    userText1={userText2}
-                    setUserInput={setUserInput2}
-                  ></CodeInput>
-                </Typography>
+                <Editor className="z-10," height="90%"
+                  width="100%" theme="vs-dark" defaultLanguage="cpp"
+                  value={algorithmSnipet}
+                  onMount={handleEditorDidMount} />
+                <Card className="bg-black text-white">
+                  <Typography>Output:</Typography>
+                  <code>
+                    {sourceOutput}
+                  </code>
+                </Card>
+                <CodeInput answerCode={code[0].answercode} setSourceOutput={setSourceOutput} sourceCode={editorValue} />
               </Box>
             </CardContent>
           </Card>
         </div>
-      </div>
+      </div >
     )
   );
 }

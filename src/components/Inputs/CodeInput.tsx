@@ -1,39 +1,30 @@
-import { IconButton, InputBase, Paper } from "@mui/material";
-import React from "react";
+import executeCode from "@/hooks/code/codeHooks";
+import { Button, IconButton, InputBase, Paper } from "@mui/material";
+import React, { Dispatch, SetStateAction } from "react";
 import { BiCode } from "react-icons/bi";
 
-function CodeInput({
-  userText1,
-  setUserInput,
-}: {
-  userText1: string;
-  setUserInput: (value: string) => void;
-}) {
+function CodeInput({ answerCode, sourceCode, setSourceOutput }: { answerCode: string, sourceCode: string, setSourceOutput: Dispatch<SetStateAction<string>> }) {
+  async function handleRunCode() {
+    console.log(sourceCode + answerCode);
+    const output = await executeCode(sourceCode + answerCode);
+    setSourceOutput(output.run.output);
+  }
   return (
-    <Paper
-      component="form"
+    <Button
+      variant="contained"
+      onClick={handleRunCode}
       sx={{
-        p: "2px 4px",
-        display: "flex",
-        alignItems: "center",
-        width: 400,
-        m: 2,
+        p: '10px',
+        backgroundColor: '#007bff', // Set your desired background color
+        color: '#ffffff', // Set your desired text color
+        '&:hover': {
+          backgroundColor: '#0056b3', // Set hover background color
+        },
       }}
+      aria-label="Run Code"
     >
-      <InputBase
-        sx={{ m: 1, flex: 1 }}
-        placeholder="Add Code"
-        inputProps={{
-          "aria-label": "Code",
-          maxLength: 25, // Set the max character count here
-        }}
-        value={userText1}
-        onChange={(event) => setUserInput(event.target.value)}
-      />
-      <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-        <BiCode />
-      </IconButton>
-    </Paper>
+      <BiCode />
+    </Button>
   );
 }
 
