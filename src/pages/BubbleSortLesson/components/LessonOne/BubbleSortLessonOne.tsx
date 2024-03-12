@@ -22,6 +22,7 @@ import { Lesson } from "@/models/Lesson/lesson";
 import CodeLesson from "../CodeLesson/CodeLesson";
 import VisualLesson from "../VisualLesson/VisualLesson";
 import ImgLesson from "../ImgLesson/ImgLesson";
+import { bubbleSortCode } from "@/utils/constants/LessonsCode";
 
 export function incrementLessons(lessonId: number, lessons: Lesson[]) {
   if (Number(lessonId) < lessons.length - 1) {
@@ -47,7 +48,7 @@ function BubbleSortLesson() {
       case "visual":
         return <VisualLesson lessons={lessons} ids={ids} />;
       case "code":
-        return <CodeLesson lessons={lessons} ids={ids} />;
+        return <CodeLesson algorithmSnipet={bubbleSortCode()} lessons={lessons} ids={ids} />;
       default:
         return null;
     }
