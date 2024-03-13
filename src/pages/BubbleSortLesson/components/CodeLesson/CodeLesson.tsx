@@ -11,7 +11,6 @@ import React, { useRef, useState } from "react";
 import { Lesson } from "@/models/Lesson/lesson";
 import { CourseParams } from "@/utils/constants/courseParams";
 import { getCodeQA } from "@/hooks/code/codeHooks";
-import { bubbleSortCode } from "@/utils/constants/LessonsCode";
 import CodeInput from "@/components/Inputs/CodeInput";
 import Editor from "@monaco-editor/react"
 import { editor as monacoEditor } from 'monaco-editor';
@@ -61,34 +60,32 @@ function CodeLesson({
               <Box>{descriptionParts}</Box>
               <Divider />
               <Typography className="p-5">
-                {code?.map((codes, index) => (
-                  <div key={index} style={{ marginBottom: "20px" }}>
-                    <Typography
-                      variant="h1"
-                      className=" text-xl"
-                      sx={{
-                        fontWeight: "bold",
-                        fontStyle: "italic",
-                        color:
-                          sourceOutput.trim().toLowerCase().replace(/\s/g, "") ===
-                            codes.output
-                              .trim()
-                              .toLowerCase()
-                              .replace(/\s/g, "")
-                            ? "blue"
-                            : "red",
-                        mt: "20px",
-                      }}
-                    >
-                      {index + 1}. {codes.questiontext}
-                    </Typography>
-                    <Typography>
-                      {sourceOutput.trim().toLowerCase().replace(/\s/g, "") ===
-                        codes.output.trim().toLowerCase().replace(/\s/g, "")
-                        && <Checkbox checked />}
-                    </Typography>
-                  </div>
-                ))}
+                <div style={{ marginBottom: "20px" }}>
+                  <Typography
+                    variant="h1"
+                    className=" text-xl"
+                    sx={{
+                      fontWeight: "bold",
+                      fontStyle: "italic",
+                      color:
+                        sourceOutput.trim().toLowerCase().replace(/\s/g, "") ===
+                          code.output
+                            .trim()
+                            .toLowerCase()
+                            .replace(/\s/g, "")
+                          ? "blue"
+                          : "red",
+                      mt: "20px",
+                    }}
+                  >
+                    {code.questiontext}
+                  </Typography>
+                  <Typography>
+                    {sourceOutput.trim().toLowerCase().replace(/\s/g, "") ===
+                      code.output.trim().toLowerCase().replace(/\s/g, "")
+                      && <Checkbox checked />}
+                  </Typography>
+                </div>
               </Typography>
             </CardContent>
           </Card>
@@ -105,7 +102,7 @@ function CodeLesson({
                     {sourceOutput}
                   </code>
                 </Card>
-                <CodeInput answerCode={code[0].answercode} setSourceOutput={setSourceOutput} sourceCode={editorValue} />
+                <CodeInput answerCode={code.answercode} setSourceOutput={setSourceOutput} sourceCode={editorValue} />
               </Box>
             </CardContent>
           </Card>
